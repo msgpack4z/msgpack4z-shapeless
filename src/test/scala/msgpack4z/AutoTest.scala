@@ -19,8 +19,8 @@ object AAA {
 }
 
 sealed abstract class Tree[A]
-final case class Leaf[A](left: Tree[A], right: Tree[A]) extends Tree[A]
-final case class Tip[A](value: A) extends Tree[A]
+final case class Node[A](left: Tree[A], right: Tree[A]) extends Tree[A]
+final case class Leaf[A](value: A) extends Tree[A]
 
 abstract class SpecBase(typeClass: TypeClass[MsgpackCodec], name: String) extends Properties(name) {
 
