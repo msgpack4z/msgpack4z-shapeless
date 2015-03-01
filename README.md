@@ -7,8 +7,20 @@
 - <http://msgpack.org/>
 - <https://github.com/msgpack/msgpack/blob/master/spec.md>
 
+### latest stable version
+
 ```scala
 libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-shapeless" % "0.1.0"
 ```
 
 - [sxr](https://oss.sonatype.org/service/local/repositories/releases/archive/com/github/xuwei-k/msgpack4z-shapeless_2.11/0.1.0/msgpack4z-shapeless_2.11-0.1.0-sxr.jar/!/index.html)
+
+### snapshot version
+
+```scala
+libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-shapeless" % "0.1.1-SNAPSHOT"
+
+resolvers += Opts.resolver.sonatypeSnapshots
+```
+
+- [sxr](https://oss.sonatype.org/service/local/repositories/snapshots/archive/com/github/xuwei-k/msgpack4z-shapeless_2.11/0.1.1-SNAPSHOT/msgpack4z-shapeless_2.11-0.1.1-SNAPSHOT-sxr.jar/!/index.html)
