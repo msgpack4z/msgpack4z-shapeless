@@ -10,6 +10,12 @@ object Common {
     sys.process.Process("git rev-parse HEAD").lines_!.head
   ).getOrElse("master")
 
+  private[this] val unusedWarnings = (
+    "-Ywarn-unused" ::
+    "-Ywarn-unused-import" ::
+    Nil
+  )
+
   val settings = Seq(
     ReleasePlugin.releaseSettings,
     ReleasePlugin.extraReleaseCommands,
@@ -53,10 +59,8 @@ object Common {
       "-language:existentials" ::
       "-language:higherKinds" ::
       "-language:implicitConversions" ::
-      "-Ywarn-unused" ::
-      "-Ywarn-unused-import" ::
       Nil
-    ),
+    ) ::: unusedWarnings,
     scalaVersion := "2.11.6",
     crossScalaVersions := scalaVersion.value :: Nil,
     scalacOptions in (Compile, doc) ++= {
@@ -91,6 +95,8 @@ object Common {
       val stripTestScope = stripIf { n => n.label == "dependency" && (n \ "scope").text == "test" }
       new RuleTransformer(stripTestScope).transform(node)(0)
     }
+  ) ++ Seq(Compile, Test).flatMap(c =>
+    scalacOptions in (c, console) ~= {_.filterNot(unusedWarnings.toSet)}
   )
 
 }
