@@ -13,7 +13,7 @@ object build extends Build {
     name := msgpack4zShapelessName,
     libraryDependencies ++= (
       ("com.chuusai" %% "shapeless" % "2.0.0") ::
-      ("com.github.xuwei-k" %% "msgpack4z-core" % "0.1.1") ::
+      ("com.github.xuwei-k" %% "msgpack4z-core" % "0.1.3") ::
       ("org.scalaz" %% "scalaz-scalacheck-binding" % "7.1.1" % "test") ::
       ("com.github.xuwei-k" %% "zeroapply-scalaz" % "0.1.2" % "provided") ::
       ("org.typelevel" %% "shapeless-scalaz" % shapelessContrib % "test") ::
