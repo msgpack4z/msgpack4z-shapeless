@@ -1,7 +1,8 @@
 import sbt._, Keys._
 import sbtrelease._
-import xerial.sbt.Sonatype._
+import sbtrelease.ReleasePlugin.autoImport._
 import ReleaseStateTransformations._
+import xerial.sbt.Sonatype._
 import com.typesafe.sbt.pgp.PgpKeys
 
 object Common {
@@ -17,7 +18,6 @@ object Common {
   )
 
   val settings = Seq(
-    ReleasePlugin.releaseSettings,
     ReleasePlugin.extraReleaseCommands,
     sonatypeSettings
   ).flatten ++ Seq(
@@ -26,7 +26,7 @@ object Common {
       TestFrameworks.ScalaCheck, "-minSuccessfulTests", "300"
     ),
     commands += Command.command("updateReadme")(UpdateReadme.updateReadmeTask),
-    ReleasePlugin.ReleaseKeys.releaseProcess := Seq[ReleaseStep](
+    releaseProcess := Seq[ReleaseStep](
       ReleaseStep{ state =>
         assert(Sxr.disableSxr == false)
         state
