@@ -6,7 +6,6 @@ scalacOptions ++= (
   "-deprecation" ::
   "-unchecked" ::
   "-Xlint" ::
-  "-optimize" ::
   "-language:existentials" ::
   "-language:higherKinds" ::
   "-language:implicitConversions" ::
