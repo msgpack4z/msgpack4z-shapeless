@@ -6,11 +6,16 @@ import scalaz.{-\/, \/-}
 object MsgpackCodecAuto extends TypeClassCompanion[MsgpackCodec] {
   private[msgpack4z] final val HeaderSize = 1
 
-  implicit val MsgpackCodecInstance: TypeClass[MsgpackCodec] =
+  override val typeClass: TypeClass[MsgpackCodec] =
     new MsgpackCodecTypeClassImpl[Byte](0, 1)(CodecInstances.anyVal.byteCodec)
 
   def codecTypeClass[A](leftKey: A, rightKey: A)(implicit A: MsgpackCodec[A]): TypeClass[MsgpackCodec] =
     new MsgpackCodecTypeClassImpl(leftKey, rightKey)
+
+  def typeClassCompanion[A](leftKey: A, rightKey: A)(implicit A: MsgpackCodec[A]): TypeClassCompanion[MsgpackCodec] =
+    new TypeClassCompanion[MsgpackCodec] {
+      override val typeClass = codecTypeClass(leftKey, rightKey)
+    }
 }
 
 private final class MsgpackCodecTypeClassImpl[A](LeftKey: A, RightKey: A)(implicit A: MsgpackCodec[A]) extends TypeClass[MsgpackCodec] {

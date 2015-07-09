@@ -1,13 +1,12 @@
 package msgpack4z
 
 import msgpack4z.CodecInstances.all._
+import org.scalacheck.Shapeless._
 import org.scalacheck.{Arbitrary, Prop, Properties}
-import shapeless.TypeClass
-import shapeless.contrib.scalacheck._
-import shapeless.contrib.scalaz._
+import shapeless.TypeClassCompanion
 import scala.util.control.NonFatal
-import scalaz.{-\/, Equal, \/-}
 import scalaz.std.AllInstances._
+import scalaz.{-\/, Equal, \/-}
 
 sealed abstract class AAA[X]
 object AAA {
@@ -16,13 +15,24 @@ object AAA {
   final case class CCC[X](a: Int, b: List[String], c: (String, Byte), x: X) extends AAA[X]
   final case class DDD[X](a: Map[Long, Int], b: (Long, List[Boolean]), x: X) extends AAA[X]
   case class EEE[X]() extends AAA[X]
+
+  // TODO
+  implicit def equalInstance[A: Equal]: Equal[AAA[A]] =
+    Equal.equalA[AAA[A]]
 }
 
 sealed abstract class Tree[A]
 final case class Node[A](left: Tree[A], right: Tree[A]) extends Tree[A]
 final case class Leaf[A](value: A) extends Tree[A]
 
-abstract class SpecBase(typeClass: TypeClass[MsgpackCodec], name: String) extends Properties(name) {
+object Tree {
+  // TODO
+  implicit def equalInstance[A: Equal]: Equal[Tree[A]] =
+    Equal.equalA[Tree[A]]
+}
+
+abstract class SpecBase(typeClassCompanion: TypeClassCompanion[MsgpackCodec], name: String) extends Properties(name) {
+  import typeClassCompanion._
 
   protected[this] def packer(): MsgPacker
   protected[this] def unpacker(bytes: Array[Byte]): MsgUnpacker
@@ -54,17 +64,12 @@ abstract class SpecBase(typeClass: TypeClass[MsgpackCodec], name: String) extend
       }
     }
 
-  private implicit val instance = typeClass
-
-  private implicit def aaaCodec[X: MsgpackCodec] = MsgpackCodecAuto[AAA[X]]
-  private implicit def treeCodec[X: MsgpackCodec] = MsgpackCodecAuto[Tree[X]]
-
   property("AAA") = checkLaw[AAA[Int]]
   property("Tree") = checkLaw[Tree[Int]]
 }
 
-abstract class AutoSpec1(name: String) extends SpecBase(MsgpackCodecAuto.MsgpackCodecInstance, name + " auto1")
-abstract class AutoSpec2(name: String) extends SpecBase(MsgpackCodecAuto.codecTypeClass("foo", "bar"), name + " auto2")
+abstract class AutoSpec1(name: String) extends SpecBase(MsgpackCodecAuto, name + " auto1")
+abstract class AutoSpec2(name: String) extends SpecBase(MsgpackCodecAuto.typeClassCompanion("foo", "bar"), name + " auto2")
 
 trait Msgpack06Spec{ _: SpecBase =>
   override protected[this] def packer() = Msgpack06.defaultPacker()
