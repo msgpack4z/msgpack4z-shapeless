@@ -11,3 +11,5 @@ scalacOptions ++= (
   "-language:implicitConversions" ::
   Nil
 )
+
+fullResolvers ~= {_.filterNot(_.name == "jcenter")}

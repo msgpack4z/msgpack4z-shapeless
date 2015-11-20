@@ -22,6 +22,7 @@ object Common {
     sonatypeSettings
   ).flatten ++ Seq(
     resolvers += Opts.resolver.sonatypeReleases,
+    fullResolvers ~= {_.filterNot(_.name == "jcenter")},
     testOptions in Test += Tests.Argument(
       TestFrameworks.ScalaCheck, "-minSuccessfulTests", "300"
     ),
