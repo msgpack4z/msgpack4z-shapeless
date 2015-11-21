@@ -11,12 +11,12 @@ object build extends Build {
     name := msgpack4zShapelessName,
     libraryDependencies ++= (
       ("com.chuusai" %% "shapeless" % "2.2.5") ::
-      ("com.github.xuwei-k" %% "msgpack4z-core" % "0.1.4") ::
+      ("com.github.xuwei-k" %% "msgpack4z-core" % "0.2.0") ::
       ("com.github.xuwei-k" %% "zeroapply-scalaz" % "0.1.3" % "provided") ::
       ("com.github.alexarchambault" %% "scalacheck-shapeless_1.12" % "0.3.1" % "test") ::
-      ("com.github.xuwei-k" % "msgpack4z-java07" % "0.1.5" % "test") ::
-      ("com.github.xuwei-k" % "msgpack4z-java06" % "0.1.1" % "test") ::
-      ("com.github.xuwei-k" %% "msgpack4z-native" % "0.1.1" % "test") ::
+      ("com.github.xuwei-k" % "msgpack4z-java07" % "0.2.0" % "test") ::
+      ("com.github.xuwei-k" % "msgpack4z-java06" % "0.2.0" % "test") ::
+      ("com.github.xuwei-k" %% "msgpack4z-native" % "0.2.0" % "test") ::
       Nil
     )
   ).settings(
