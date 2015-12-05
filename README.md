@@ -10,10 +10,10 @@
 ### latest stable version
 
 ```scala
-libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-shapeless" % "0.2.0"
+libraryDependencies += "com.github.xuwei-k" %% "msgpack4z-shapeless" % "0.3.0"
 ```
 
-- [sxr](https://oss.sonatype.org/service/local/repositories/releases/archive/com/github/xuwei-k/msgpack4z-shapeless_2.11/0.2.0/msgpack4z-shapeless_2.11-0.2.0-sxr.jar/!/index.html)
+- [sxr](https://oss.sonatype.org/service/local/repositories/releases/archive/com/github/xuwei-k/msgpack4z-shapeless_2.11/0.3.0/msgpack4z-shapeless_2.11-0.3.0-sxr.jar/!/index.html)
 
 ### snapshot version
 
